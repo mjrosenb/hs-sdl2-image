@@ -2,7 +2,7 @@ name:                sdl2-image
 version:             0.1.0.1
 synopsis:            Haskell binding to sdl2-image.
 license:             MIT
-author:              ccll
+author:              Cai Lei
 maintainer:          cailei@live.com
 category:            Graphics
 build-type:          Simple
