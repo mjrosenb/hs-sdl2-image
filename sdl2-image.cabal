@@ -1,5 +1,5 @@
 name:                sdl2-image
-version:             0.1.0.1
+version:             0.1.1.0
 synopsis:            Haskell binding to sdl2-image.
 description:         Haskell binding to sdl2-image.
 license:             MIT
@@ -17,7 +17,7 @@ source-repository head
 source-repository this
   type:       git
   location:   https://github.com/ccll/hs-sdl2-image.git
-  tag:        v0.1.0.1
+  tag:        v0.1.1.0
 
 library
   extra-libraries:
