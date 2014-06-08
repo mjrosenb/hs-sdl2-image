@@ -1,5 +1,5 @@
 name:                sdl2-image
-version:             0.1.0.1
+version:             0.1.1.1
 synopsis:            Haskell binding to sdl2-image.
 description:         Haskell binding to sdl2-image.
 license:             MIT
@@ -21,7 +21,7 @@ source-repository this
 
 library
   extra-libraries:
-    sdl2
+    SDL2
 
   pkgconfig-depends:
     sdl2 >= 2.0.1,
