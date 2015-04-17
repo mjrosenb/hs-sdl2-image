@@ -28,8 +28,8 @@ library
     SDL2_image >= 2.0.0
 
   build-depends:
-    base >= 4.6 && < 4.8,
-    sdl2 >= 1.0 && < 1.4
+    base >= 4.6,
+    sdl2 >= 2.0
 
   hs-source-dirs:
     src
@@ -42,10 +42,10 @@ library
     MultiParamTypeClasses, FunctionalDependencies
 
   exposed-modules:
-    Graphics.UI.SDL.Image
+    SDL.Image
 
   other-modules:
-    Graphics.UI.SDL.Utilities
+    SDL.Utilities
 
   includes:
     SDL.h
