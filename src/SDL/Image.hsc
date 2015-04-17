@@ -1,20 +1,23 @@
-module Graphics.UI.SDL.Image
+module SDL.Image
     ( InitFlag(..),
       imgInit,
       imgQuit,
       withImgInit,
-      imgLoadTexture
+      imgLoadTexture,
+      imgLoad
     ) where
 
 import Data.Word (Word32)
 import Prelude hiding (init, Enum(..))
-import Graphics.UI.SDL.Utilities (Enum(..), toBitmask)
+import SDL.Utilities (Enum(..), toBitmask)
 import Control.Monad (when)
 import Data.Maybe (fromMaybe)
 import Foreign.C (withCString, peekCString, CString)
-import Foreign.Ptr (nullPtr)
+import Foreign.Ptr (nullPtr, Ptr)
 import Control.Exception (bracket_)
-import Graphics.UI.SDL (Renderer, Texture)
+import SDL (Renderer(Renderer), Texture(Texture))
+import SDL.Video.Renderer (Surface (Surface))
+import qualified SDL.Raw as Raw
 
 #include "SDL_image.h"
 
@@ -67,17 +70,24 @@ imgQuit :: IO ()
 imgQuit = _imgQuit
 foreign import ccall unsafe "IMG_Quit" _imgQuit :: IO ()
 
-
+imgLoad :: String -> IO (Either String Surface)
+imgLoad file = withCString file $ \cFile -> do
+  sur <- _imgLoad cFile
+  err <- getError
+  if sur == nullPtr
+    then return (Left (fromMaybe "IMG_LoadTexture(): Unknown error!" err))
+    else return (Right (Surface sur))
+foreign import ccall unsafe "IMG_Load" _imgLoad :: CString -> IO (Ptr Raw.Surface)
 -- | Load image file to a texture.
 imgLoadTexture :: Renderer -> String -> IO (Either String Texture)
-imgLoadTexture rend file
+imgLoadTexture (Renderer rend) file
     = withCString file $ \cFile -> do
         tex <- _imgLoadTexture rend cFile
         err <- getError
         if tex == nullPtr
             then return (Left (fromMaybe "IMG_LoadTexture(): Unknown error!" err))
-            else return (Right tex)
-foreign import ccall unsafe "IMG_LoadTexture" _imgLoadTexture :: Renderer -> CString -> IO Texture
+            else return (Right (Texture tex))
+foreign import ccall unsafe "IMG_LoadTexture" _imgLoadTexture :: Raw.Renderer -> CString -> IO Raw.Texture
 
 
 -- | Returns a string containing the last error. Nothing if no error.

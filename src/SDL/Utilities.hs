@@ -11,7 +11,7 @@
 -- Various small functions which makes the binding process easier.
 -----------------------------------------------------------------------------
 
-module Graphics.UI.SDL.Utilities where
+module SDL.Utilities where
 
 import Foreign (Bits((.|.), (.&.)))
 import Foreign.C (CInt)
